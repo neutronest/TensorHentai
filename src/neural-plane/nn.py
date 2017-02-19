@@ -59,7 +59,7 @@ class NeuronNetwork():
         idx = 0
         prev_neurons = 0
         layer = Layer(idx)
-        layer.init_neurons(n_input, pref_neurons)
+        layer.init_neurons(n_input, prev_neurons)
         prev_neurons = n_input
         self.layers.append(layer)
         idx += 1
@@ -86,8 +86,8 @@ class NeuronNetwork():
         for layer in self.layers:
             data["network"].append(len(layer.neurons))
             for neuron in layer.neurons:
-                for weight in neuron.weigths:
-                    data["weights"].apend(weight)
+                for weight in neuron.weights:
+                    data["weights"].append(weight)
         return data
 
     def set_weights(self, data):
@@ -100,7 +100,7 @@ class NeuronNetwork():
             layer.init_neurons(n_neurons, prev_neurons)
             for j in xrange(len(layer.neurons)):
                 for k in xrange(len(layer.neurons[j].weights)):
-                    layer.neuron[j].weights[k] = data["weights"]["weight_idx"]
+                    layer.neurons[j].weights[k] = data["weights"]["weight_idx"]
                     weight_idx += 1
             prev_neurons = n_neurons
             idx += 1
@@ -108,20 +108,20 @@ class NeuronNetwork():
         return
 
     def forward(self, input_data):
-        for i in len(input_data):
-            self.layer[0].neuron[i].res = input_data[i]
+        for i in xrange(0, len(input_data)):
+            self.layers[0].neurons[i].res = input_data[i]
 
-        prev_neurons = self.layer[0]
+        prev_neurons = self.layers[0]
         for i in xrange(1, len(self.layers)):
             for j in xrange(len(self.layers[i].neurons)):
                 neuron = self.layers[i].neurons[j]
                 sum_res = 0.0
                 for k in xrange(len(neuron.weights)):
-                    weight = neurons.weights[k]
-                    bias = neurons.bias[k]
-                    res = sigmoid(weight * prev_neurons.neuron[k].res)
+                    weight = neuron.weights[k]
+                    #bias = neuron.bias[k]
+                    res = sigmoid(weight * prev_neurons.neurons[k].res)
                     sum_res += res
-                self.layers[i].neutrons[j].res = sum_res
+                self.layers[i].neurons[j].res = sum_res
             prev_neurons = self.layers[i]
 
         out = []
@@ -133,5 +133,10 @@ class NeuronNetwork():
 
 if __name__ == "__main__":
     print "hello world!"
-    
+    nn = NeuronNetwork()
+    nn.init_neuron_network(4, [16], 3)
+    w = nn.get_weights()
+    out = nn.forward([1.21, 0.11, 3.22, 4.3])
+    print out
+    print w
 
