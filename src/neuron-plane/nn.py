@@ -12,6 +12,9 @@ def random_clamped():
 
 
 class Neuron():
+    # neuron is the basic element of layer
+    # a layer is constucted with multiple neurons
+    
     def __init__(self):
         self.weights = []
         self.bias = 0.0
@@ -129,7 +132,6 @@ class NeuronNetwork():
         for neuron in out_layer.neurons:
             out.append(neuron.res)
         return out
-
 
 if __name__ == "__main__":
     print "hello world!"
