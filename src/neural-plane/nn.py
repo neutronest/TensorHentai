@@ -42,11 +42,11 @@ class Layer():
         return 'Layer ID:{}, Layer neuron size:{}'.format(self.idx, len(self.neurons))
 
 
-class NeuronNetwork():
+class NeuralNetwork():
     def __init__(self):
         self.layers = []
 
-    def init_neuron_network(self, n_input, n_hiddens, n_output):
+    def init_neural_network(self, n_input, n_hiddens, n_output):
         """
         Params:
         n_input: the number of input
@@ -135,8 +135,8 @@ class NeuronNetwork():
 
 if __name__ == "__main__":
     print "hello world!"
-    nn = NeuronNetwork()
-    nn.init_neuron_network(4, [16], 3)
+    nn = NeuralNetwork()
+    nn.init_neural_network(4, [16], 3)
     w = nn.get_weights()
     out = nn.forward([1.21, 0.11, 3.22, 4.3])
     print out
